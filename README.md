@@ -2,6 +2,10 @@
 
 This is a FastAPI-based backend with PostgreSQL and React for managing a game leaderboard. It allows players to join games, track scores, and view leaderboards.
 
+**Product Walkthrough** — [Youtube Link](https://youtu.be/FBIjNdJcnw8)
+
+**Product Drawboard** — [Excalidraw Link](https://excalidraw.com/#json=Z_JK5xDWsNm-DWk_l_ADh,yHNAQGezuGMSoqSnVKlw3w)
+
 ---
 
 ## 🚀 **Setup Instructions**
