@@ -1,0 +1,44 @@
+services:
+    backend:
+        build: ./backend # Build the FastAPI backend image from the backend directory
+        ports:
+            - "8000:8000" # Map container port 8000 to host port 8000
+        depends_on:
+            db: # Ensure the database service starts first
+                condition: service_healthy # Wait for DB healthcheck before starting backend
+        env_file:
+            - ./backend/.env # Load environment variables securely
+        volumes:
+            - ./backend/app:/app/app # Mount the FastAPI app directory
+            - ./backend/requirements.txt:/app/requirements.txt
+
+    frontend:
+        build: ./frontend # Build the React frontend image from the frontend directory
+        ports:
+            - "3000:3000" # Map container port 3000 to host port 3000
+        depends_on:
+            - backend # Optionally wait for backend (not strictly necessary for development)
+        env_file:
+            - ./frontend/.env # Load frontend environment variables securely
+        volumes:
+            - ./frontend:/app # Mount entire frontend directory
+            - /app/node_modules # Prevent overriding installed dependencies
+        environment:
+            - WATCHPACK_POLLING=true # Fix for hot reload issues
+
+    db:
+        image: postgres:17 # Use PostgreSQL 14 image
+        ports:
+            - "5433:5432" # Map container port 5432 to host port 5432
+        volumes:
+            - pgdata:/var/lib/postgresql/data # Persist database data
+        env_file:
+            - ./backend/.env # Use the same .env file for database credentials
+        healthcheck: # Add this to wait until DB is ready
+            test: ["CMD", "pg_isready", "-U", "postgres"]
+            interval: 5s
+            retries: 5
+            timeout: 3s
+
+volumes:
+    pgdata: # Named volume for PostgreSQL data persistence

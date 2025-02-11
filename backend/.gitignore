@@ -1,0 +1,33 @@
+# Python & FastAPI-related ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual Environment (Exclude `venv` or `env`)
+fastapi-env/
+venv/
+env/
+
+# Ignore environment variables (Security)
+.env
+.env.local
+.env.development
+.env.production
+
+# Database Files (For Local Dev)
+*.sqlite3
+pgdata/
+
+# Alembic Migrations (Ignore Compiled Python Bytecode)
+alembic/versions/*.pyc
+alembic/versions/*.pyo
+
+# Ignore VS Code & PyCharm IDE Settings
+.vscode/
+.idea/
+
+# Ignore Docker Build Files
+docker-compose.override.yml
+__pycache__/
